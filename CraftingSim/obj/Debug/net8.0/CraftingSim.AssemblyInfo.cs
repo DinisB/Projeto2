@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CraftingSim")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9eecb389828567414d43b147d97d1f183b57f689")]
 [assembly: System.Reflection.AssemblyProductAttribute("CraftingSim")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CraftingSim")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

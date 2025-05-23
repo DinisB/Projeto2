@@ -34,7 +34,25 @@ namespace CraftingSim.Model
         {
             foreach (string recipeFile in recipeFiles)
             {
-                // continuar depois
+                string[] lines = File.ReadAllLines(recipeFile);
+                string[] item = lines[0].Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] materialOne = lines[1].Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] materialTwo = lines[2].Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                string recipeName = item[0];
+                double sucess = double.Parse(item[1].Replace(".", ","));
+                int idOne = int.Parse(materialOne[0]);
+                int quantityOne = int.Parse(materialOne[1]);
+                int idTwo = int.Parse(materialTwo[0]);
+                int quantityTwo = int.Parse(materialTwo[1]);
+
+                Dictionary<IMaterial, int> requiredMaterials = new Dictionary<IMaterial, int>
+                {
+                    { inventory.GetMaterial(idOne), quantityOne },
+                    { inventory.GetMaterial(idTwo), quantityTwo }
+                };
+
+                IRecipe recipe = new Recipe(recipeName, requiredMaterials, sucess);
+                recipeList.Add(recipe);
             }
         }
 
@@ -57,7 +75,7 @@ namespace CraftingSim.Model
                     break;
                 }
             }
-            
+
             if (selected == null)
                 return "Recipe not found.";
 

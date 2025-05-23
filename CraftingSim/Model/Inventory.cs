@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace CraftingSim.Model
 {
@@ -58,16 +59,13 @@ namespace CraftingSim.Model
         /// <returns>True if removed successfuly, false if not enough material</returns>
         public bool RemoveMaterial(IMaterial material, int quantity)
         {
-            foreach (IMaterial mat in Materials)
+            if (materials.ContainsKey(material))
             {
-                while (quantity != 0)
-                {
-                    if (mat == material)
-                    {
-                        materials.Remove(material);
-                        --quantity;
-                    }
-                }
+                materials[material] -= quantity;
+            }
+            else
+            {
+                materials.Remove(material);
             }
             return false;
         }
@@ -103,7 +101,20 @@ namespace CraftingSim.Model
         public void LoadMaterialsFromFile(string file)
         {
             string[] lines = File.ReadAllLines(file);
-            // continuar dps
+            foreach (string line in lines)
+            {
+                string[] material = line.Split(",");
+                int materialId = int.Parse(material[0]);
+                string materialName = material[1];
+                int quantity = int.Parse(material[2]);
+
+                IMaterial mat = GetMaterial(materialId);
+                if (mat == null)
+                {
+                    mat = new Material(materialId, materialName);
+                }
+                AddMaterial(mat, quantity);
+            }
         }
     }
 }
