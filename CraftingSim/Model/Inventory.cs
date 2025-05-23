@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -41,13 +42,9 @@ namespace CraftingSim.Model
         public void AddMaterial(IMaterial material, int quantity)
         {
             if (materials.ContainsKey(material))
-            {
                 materials[material] += quantity;
-            }
             else
-            {
-                materials.Add(material, quantity);
-            }
+                materials[material] = quantity;
         }
 
         /// <summary>
@@ -59,13 +56,12 @@ namespace CraftingSim.Model
         /// <returns>True if removed successfuly, false if not enough material</returns>
         public bool RemoveMaterial(IMaterial material, int quantity)
         {
-            if (materials.ContainsKey(material))
+            if (materials.ContainsKey(material) && materials[material] >= quantity)
             {
                 materials[material] -= quantity;
-            }
-            else
-            {
-                materials.Remove(material);
+                if (materials[material] == 0)
+                    materials.Remove(material);
+                return true;
             }
             return false;
         }

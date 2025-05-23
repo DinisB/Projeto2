@@ -33,6 +33,7 @@ namespace CraftingSim.Model
         /// <param name="recipeFiles">Array of file paths</param>
         public void LoadRecipesFromFile(string[] recipeFiles)
         {
+            recipeList.Clear();
             foreach (string recipeFile in recipeFiles)
             {
                 string[] lines = File.ReadAllLines(recipeFile);
