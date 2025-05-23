@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 
 namespace CraftingSim.Model
@@ -39,6 +40,12 @@ namespace CraftingSim.Model
                 string[] materialOne = lines[1].Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 string[] materialTwo = lines[2].Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 string recipeName = item[0];
+                string[] recipeNameBits = recipeName.Split("-");
+                recipeName = "";
+                for (int n = 0; n < recipeNameBits.Length; n++)
+                {
+                    recipeName += char.ToUpper(recipeNameBits[n][0]) + recipeNameBits[n].Substring(1);
+                }
                 double sucess = double.Parse(item[1].Replace(".", ","));
                 int idOne = int.Parse(materialOne[0]);
                 int quantityOne = int.Parse(materialOne[1]);
